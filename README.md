@@ -51,7 +51,7 @@ The dataset is available on Kaggle: [FER2013 Dataset](https://www.kaggle.com/dat
 ## **Setup and Installation**
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/emotion-detection-fer2013.git
+   git clone https://github.com/maielmeligyy/emotion-detection-fer2013.git
    cd emotion-detection-fer2013
    ```
 
