@@ -1,113 +1,113 @@
-# **Emotion Detection Using FER2013 Dataset**
+# README for Emotion Recognition Model Evaluation
 
-## **Overview**
-This project explores facial emotion recognition using the **FER2013 dataset**, implementing and comparing the performance of two machine learning models:
-1. **Support Vector Machine (SVM)**  
-2. **Convolutional Neural Network (CNN)**  
-
-The project demonstrates the effectiveness of CNNs in learning spatial hierarchies for image-based tasks and highlights the challenges of using SVMs for emotion recognition.
-
----
-
-## **Project Structure**
-```
-.
-├── project.ipynb        # Jupyter Notebook containing the full implementation
-├── README.md            # Project README file
-├── requirements.txt     # List of required Python packages
-├── fer2013/             # Folder for the FER2013 dataset
-│   ├── train/           # Training images
-│   ├── test/            # Test images
-
-```
-
----
+## **Project Overview**
+This project is part of the **KH6006CEM - Machine Learning and Related Applications** module. It focuses on evaluating three machine learning models for emotion recognition: **Support Vector Machine (SVM)**, **Random Forest (RF)**, and **Convolutional Neural Network (CNN)**. The models are trained and evaluated on the FER2013 dataset for facial emotion recognition.
 
 ## **Dataset**
-The **FER2013 dataset** contains 48x48 grayscale facial images labeled with seven emotions:
-- Angry
-- Disgust
-- Fear
-- Happy
-- Neutral
-- Sad
-- Surprise  
+The FER2013 dataset contains grayscale images of faces, categorized into multiple emotion classes:
+- **Training Directory**: `/fer2013/train`
+- **Testing Directory**: `/fer2013/test`
 
-The dataset is available on Kaggle: [FER2013 Dataset](https://www.kaggle.com/datasets/msambare/fer2013).
-
----
+Each image is resized to `48x48` and normalized to scale pixel values between 0 and 1.
 
 ## **Key Features**
-- **Preprocessing**: Images are resized, normalized, and augmented for CNN training. Labels are one-hot encoded for compatibility.
-- **Models Implemented**:
-  - **SVM**: Evaluated using flattened image arrays.
-  - **CNN**: Designed with convolutional, pooling, dropout, and dense layers.
-- **Performance Evaluation**:
-  - Confusion matrices, training/validation curves, and feature map visualizations.
-  - Metrics: Accuracy, precision, recall, F1-score.
+- **Models Evaluated**:
+  1. **SVM**: Fine-tuned using GridSearchCV for hyperparameter optimization.
+  2. **Random Forest**: Fine-tuned using GridSearchCV with a range of tree-based parameters.
+  3. **CNN**: A custom deep learning architecture using Keras.
 
----
+- **Metrics**:
+  - **Accuracy**
+  - **Precision**
+  - **Recall**
+  - **F1-Score**
+  - **ROC-AUC**
 
-## **Setup and Installation**
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/maielmeligyy/emotion-detection-fer2013.git
-   cd emotion-detection-fer2013
-   ```
+- **Visualizations**:
+  - Confusion Matrices for SVM, RF, and CNN.
+  - Feature Importance for Random Forest.
+  - CNN Feature Maps.
+  - Bar charts comparing models' metrics.
 
-2. Install required packages:
-   ```bash
-   pip install -r requirements.txt
-   ```
+## **Directory Structure**
+- **Dataset**: FER2013, with `train` and `test` subdirectories.
+- **Scripts**: Python scripts for training, evaluating, and visualizing models.
+- **Output**:
+  - Saved models (`emotion_recognition_model.h5`)
+  - Training accuracy plots
+  - Model comparison results in text files
 
-3. Download the FER2013 dataset and place it in the `dataset/` directory.
+## **Setup Instructions**
+1. **Install Dependencies**:
+   - Python 3.8+
+   - Required libraries:
+     ```bash
+     pip install numpy pandas matplotlib seaborn scikit-learn tensorflow keras
+     ```
 
-4. Run the Jupyter Notebook:
-   ```bash
-   jupyter notebook project.ipynb
-   ```
+2. **Data Preprocessing**:
+   - Images are rescaled and resized to `48x48`.
+   - For SVM and RF, images are flattened into vectors.
 
----
+3. **Training Models**:
+   - Run the script to train and fine-tune all models.
 
-## **Results**
-- **CNN Accuracy**: 51.03%  
-- **SVM Accuracy**: 15.62%  
+4. **Evaluation**:
+   - Metrics are printed to the console.
+   - Results are saved to text files.
 
-| Metric      | SVM     | CNN     |
-|-------------|---------|---------|
-| Accuracy    | 15.62%  | 51.03%  |
-| Precision   | 30.00%  | 65.00%  |
-| Recall      | 15.62%  | 51.03%  |
-| F1-Score    | 18.00%  | 56.00%  |
+5. **Visualization**:
+   - Confusion matrices and feature maps are plotted.
+   - Bar charts for metric comparison.
 
-**Visualizations**:
-- Feature maps from CNN layers show hierarchical learning of edges, shapes, and facial features.
-- Confusion matrices highlight the CNN's strengths in recognizing "Happy" and "Neutral" emotions.
+## **Model Architectures**
+### **1. Support Vector Machine (SVM)**
+- Kernel: Linear and RBF
+- Hyperparameters:
+  - `C` (Regularization): [0.1, 1, 10]
+- Outputs probabilities using `probability=True`.
 
----
+### **2. Random Forest**
+- Parameters:
+  - Number of Trees: [50, 100, 200]
+  - Maximum Depth: [None, 10, 20]
+- Fine-tuned using GridSearchCV.
+
+### **3. Convolutional Neural Network (CNN)**
+- Layers:
+  - **Conv2D**: Two layers with 32 and 64 filters, respectively.
+  - **Pooling**: MaxPooling layers after each Conv2D layer.
+  - **Dropout**: 25% and 50% dropout rates.
+  - **Dense**: Fully connected layer with 128 neurons.
+  - **Output Layer**: Softmax activation.
+- Optimizer: Adam (learning rate = 0.001)
+- Loss: Categorical Crossentropy
+- Epochs: 10
+
+## **Evaluation Results**
+### Metrics:
+| Model          | Accuracy | Precision | Recall | F1-Score | ROC-AUC |
+|----------------|----------|-----------|--------|----------|---------|
+| SVM            | 0.2188   | 0.0479    | 0.2188 | 0.0785   | 0.4722  |
+| Random Forest  | 0.2812   | 0.1727    | 0.2812 | 0.2128   | 0.5771  |
+| CNN            | 0.1344   | 0.1489    | 0.1344 | 0.0748   | 0.4939  |
+
+
+### Visualizations:
+- **Confusion Matrices**: Show model performance for each class.
+- **Feature Importance**: Visualized for Random Forest.
+- **Bar Charts**: Compare metrics across models.
 
 ## **Usage**
-1. **Train Models**: Run the notebook to preprocess data, train the SVM and CNN models, and generate results.
-2. **Visualize Results**: View training curves, feature maps, and confusion matrices.
-3. **Modify Hyperparameters**: Experiment with CNN architecture and SVM kernels.
+1. **Run Training and Evaluation**:
+   ```bash
+   python train_and_evaluate.py
+   ```
+2. **View Results**:
+   - Metrics: `model_results.txt`
+   - Visualization: Plots saved as `.png` files.
 
----
-
-## **Future Enhancements**
-- Implement transfer learning with pre-trained models (e.g., ResNet, MobileNet).
-- Address class imbalance in the dataset.
-- Explore real-time emotion detection applications.
-
----
-
-## **References**
-- Kaggle. "FER2013 Dataset." [Link](https://www.kaggle.com/datasets/msambare/fer2013)
-- Géron, A. *Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow*. O'Reilly Media, 2019.
-- TensorFlow Documentation. [Link](https://www.tensorflow.org)
-
----
-
-## **License**
-This project has no license.
-
----
+## **Contact**
+For any questions or feedback, please contact:
+- **Mai Elmeligy** (ID: 202101086)
+- **Course**: KH6006CEM - Machine Learning and Related Applications
